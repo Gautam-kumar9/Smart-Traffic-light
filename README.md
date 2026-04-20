@@ -1,272 +1,179 @@
-# Smart Traffic Light Control System Using Soft Computing
+# Smart Traffic Light Control System
 
-A comprehensive implementation of an intelligent traffic signal control system using **Fuzzy Logic** to dynamically manage traffic flow at intersections. This project demonstrates how soft computing techniques can significantly improve traffic management compared to traditional fixed-time signal systems.
+An adaptive traffic signal control project based on fuzzy logic and soft computing.
+The system compares fixed-time control against smart fuzzy control under realistic traffic patterns and pedestrian crossing demand.
 
-## 📋 Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [System Architecture](#system-architecture)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Results](#results)
-- [Technical Details](#technical-details)
+## Overview
 
-## 🎯 Overview
+Traditional fixed-time traffic signals do not adapt to changing demand and can increase congestion during peak periods. This project uses fuzzy logic to dynamically choose green signal duration using:
 
-Traditional traffic light systems use fixed timers that fail to adapt to real-time traffic conditions, leading to:
-- Unnecessary delays during peak hours
-- Fuel wastage and increased pollution
-- Inefficient traffic management
-- Poor pedestrian safety
+- Traffic density
+- Day type (weekday or weekend)
+- Time period (night, normal, morning peak, evening peak)
 
-This project proposes a **Smart Traffic Light Control System** that uses **Fuzzy Logic** to dynamically adjust signal timing based on:
-- **Traffic density** (vehicle count)
-- **Day type** (weekday vs weekend)
-- **Time slot** (morning peak, evening peak, normal, night)
-- **Pedestrian crossing priority** with maximum waiting time enforcement
+It also includes pedestrian safety logic with a maximum waiting-time policy.
 
-## ✨ Features
+## Core Features
 
-### 🚦 Intelligent Traffic Control
-- **Fuzzy Logic Controller**: Adaptive signal timing based on real-time conditions
-- **Dynamic Green Time**: Adjusts from 10 to 120 seconds based on traffic demand
-- **Multi-Factor Decision Making**: Considers density, time, and day type
+- Adaptive green timing using a 24-rule fuzzy inference controller
+- Side-by-side comparison: fixed-time vs smart fuzzy control
+- Pedestrian crossing manager with safety overrides
+- Scenario-based performance testing and chart generation
+- Interactive dashboard for analysis and presentation
+- SUMO scenario files for external simulation integration
 
-### 👥 Pedestrian Safety
-- **Priority Crossing System**: Dedicated pedestrian crossing phase
-- **Maximum Wait Time Enforcement**: Forces crossing after 120 seconds (safety override)
-- **Intelligent Scheduling**: Activates during low traffic periods when possible
+## Current Project Structure
 
-### 📊 Performance Analysis
-- **Comprehensive Testing**: Multiple scenarios (peak hours, weekends, night)
-- **Comparison Framework**: Fixed-time vs smart control comparison
-- **Visual Analytics**: Charts and graphs showing performance improvements
-
-### 🎨 Visualization
-- Performance comparison charts
-- Traffic density response curves
-- 24-hour traffic pattern analysis
-- Fuzzy membership function plots
-
-## 🏗️ System Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                 Smart Traffic Light System                  │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  ┌──────────────┐      ┌──────────────────────────────┐   │
-│  │   Traffic    │─────▶│   Fuzzy Logic Controller     │   │
-│  │  Simulator   │      │  • Fuzzification             │   │
-│  └──────────────┘      │  • Rule Base (24 rules)      │   │
-│         │              │  • Defuzzification           │   │
-│         │              └──────────────┬───────────────┘   │
-│         │                             │                   │
-│         ▼                             ▼                   │
-│  ┌──────────────┐      ┌──────────────────────────────┐   │
-│  │  Pedestrian  │─────▶│   Main Control System        │   │
-│  │   Manager    │      │  • Signal Coordination       │   │
-│  └──────────────┘      │  • Cycle Management          │   │
-│                        │  • Performance Tracking      │   │
-│                        └──────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
+```text
+Smart-Traffic-light/
++-- fuzzy_controller.py
++-- traffic_simulator.py
++-- pedestrian_crossing.py
++-- main_control_system.py
++-- performance_testing.py
++-- quick_start.py
++-- real_time_simulation.py
++-- visual_simulation.py
++-- streamlit_dashboard.py
++-- sumo_fuzzy_simulation.py
++-- requirements.txt
++-- README.md
++-- sumo_scenario/
+    +-- intersection.net.xml
+    +-- intersection.sumocfg
+    +-- routes.rou.xml
+    +-- trips.trips.xml
 ```
 
-## 📥 Installation
+## Installation
 
-### Prerequisites
-- Python 3.8 or higher
-- pip package manager
+### 1. Clone Repository
 
-### Setup
-
-1. **Clone or navigate to the project directory**
 ```powershell
-cd "C:\Users\gauta\OneDrive\Desktop\soft project"
+git clone https://github.com/Gautam-kumar9/Smart-Traffic-light.git
+cd Smart-Traffic-light
 ```
 
-2. **Install required packages**
+### 2. Create and Activate Virtual Environment
+
+Windows PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Linux or macOS:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install Dependencies
+
 ```powershell
 pip install -r requirements.txt
 ```
 
-The required packages are:
-- `numpy` - Numerical computing
-- `scikit-fuzzy` - Fuzzy logic implementation
-- `matplotlib` - Visualization and plotting
+## Usage
 
-## 🚀 Usage
+### Quick Demo
 
-### Quick Start - Run Main Demonstration
+```powershell
+python quick_start.py
+```
+
+### Main Comparison Run
 
 ```powershell
 python main_control_system.py
 ```
 
-This will:
-- Compare fixed-time vs smart control for 120 minutes
-- Simulate weekday morning peak traffic (8:00 AM - 10:00 AM)
-- Display performance metrics and improvements
-
-### Run Comprehensive Analysis
+### Full Performance Analysis (Generates Charts + JSON)
 
 ```powershell
 python performance_testing.py
 ```
 
-This will:
-- Test 5 different traffic scenarios
-- Generate performance comparison charts
-- Create visualizations showing system behavior
-- Save results to `test_results.json`
-
-### Launch Interactive Streamlit Dashboard
+### Interactive Dashboard
 
 ```powershell
 streamlit run streamlit_dashboard.py
 ```
 
-Dashboard features include:
-- Full scenario comparison (Fixed-Time vs Smart Fuzzy)
-- Live KPI cards and queue-level analytics
-- Fuzzy logic response lab
-- Pedestrian safety and fairness diagnostics
-- SUMO scenario status and report downloads
+### Real-Time Console Simulations
 
-### Test Individual Components
-
-**Test Fuzzy Logic Controller:**
 ```powershell
-python fuzzy_controller.py
+python real_time_simulation.py
+python visual_simulation.py
 ```
 
-**Test Traffic Simulation:**
+### SUMO Integration Entry Point
+
 ```powershell
-python traffic_simulator.py
+python sumo_fuzzy_simulation.py
 ```
 
-**Test Pedestrian Crossing System:**
+## Verified Results
+
+The following results were produced from the current codebase using:
+
 ```powershell
-python pedestrian_crossing.py
+python quick_start.py
 ```
 
-## 📁 Project Structure
+Run date: April 20, 2026  
+Scenario: 60-minute weekday morning simulation
 
-```
-soft project/
-│
-├── fuzzy_controller.py          # Fuzzy logic implementation with 24 rules
-├── traffic_simulator.py         # Traffic pattern generation and simulation
-├── pedestrian_crossing.py       # Pedestrian crossing management
-├── main_control_system.py       # Main system integration and control
-├── performance_testing.py       # Testing framework and visualization
-├── requirements.txt             # Python dependencies
-├── README.md                    # This file
-│
-├── final report.pdf             # Project documentation
-├── report.pdf                   # Additional report
-│
-└── Generated Output Files:
-    ├── test_results.json        # Performance test results
-    ├── performance_comparison.png    # Bar chart comparison
-    ├── improvement_chart.png         # Improvement percentages
-    ├── adaptive_response.png         # Green time adaptation
-    ├── traffic_patterns.png          # 24-hour traffic patterns
-    └── membership_functions.png      # Fuzzy membership functions
-```
+| Metric | Fixed-Time | Smart Fuzzy Control |
+|---|---:|---:|
+| Total Vehicles Processed | 4179 | 4275 |
+| Total Delay (seconds) | 5,485,200.0 | 4,381,500.0 |
+| Average Delay (seconds) | 1312.56 | 1024.91 |
+| Number of Cycles | 60 | 60 |
+| Delay Reduction | - | 21.92% |
+| Total Delay Saved (seconds) | - | 1,103,700.0 |
 
-## 📊 Results
+Pedestrian safety outcomes in the same run:
 
-### Performance Improvements
+- Pedestrians crossed: 29
+- Crossing requests: 11
+- Safety overrides: 7
 
-The smart fuzzy logic control system demonstrates significant improvements over traditional fixed-time control:
+## Generated Outputs
 
-| Scenario | Fixed-Time Delay | Smart Control Delay | Improvement |
-|----------|------------------|---------------------|-------------|
-| Weekday Morning Peak | ~45.2s | ~32.8s | ~27.4% |
-| Weekday Evening Peak | ~48.1s | ~34.2s | ~28.9% |
-| Weekday Normal | ~28.5s | ~22.1s | ~22.5% |
-| Weekend Midday | ~35.2s | ~26.8s | ~23.9% |
-| Night Time | ~12.3s | ~10.1s | ~17.9% |
+When you run the full analysis script, it generates:
 
-**Average Improvement: ~24-28% reduction in waiting time**
+- test_results.json
+- performance_comparison.png
+- improvement_chart.png
+- adaptive_response.png
+- traffic_patterns.png
+- membership_functions.png
 
-### Key Benefits
+These files are generated on demand and are not required to keep in the repository.
 
-✅ **Adaptive to Real-Time Conditions**: Responds to actual traffic density  
-✅ **Reduced Waiting Time**: 25-30% improvement during peak hours  
-✅ **Fuel Efficiency**: Less idling time = reduced emissions  
-✅ **Pedestrian Safety**: Guaranteed crossing within 120 seconds  
-✅ **Flexible Rule Base**: Easy to modify for different intersections  
+## Technical Notes
 
-## 🔬 Technical Details
+- Fuzzy logic implemented with scikit-fuzzy
+- Numerical simulation with NumPy and SciPy
+- Visualization with Matplotlib and Plotly
+- Dashboard built with Streamlit and Pandas
 
-### Fuzzy Logic Implementation
+## Limitations
 
-**Input Variables:**
-- **Traffic Density**: 0-100% (Low, Medium, High)
-- **Day Type**: Weekday or Weekend
-- **Time Slot**: Night, Normal, Morning Peak, Evening Peak
+- Current simulation models a single intersection at a simplified level
+- Vehicle behavior and sensor inputs are synthetic (simulated)
+- Real-world deployment would need calibration using field traffic data
 
-**Output Variable:**
-- **Green Signal Time**: 10-120 seconds (Very Short, Short, Medium, Long, Very Long)
+## Future Improvements
 
-**Sample Fuzzy Rule:**
-```
-IF traffic density is HIGH 
-AND day is WEEKDAY 
-AND time is EVENING_PEAK
-THEN green signal time is VERY_LONG
-```
-
-Total Rules: **24 fuzzy rules** covering all combinations
-
-### Traffic Simulation
-
-The simulator generates realistic traffic patterns:
-- **Weekday Morning Peak (7-10 AM)**: 85% average density
-- **Weekday Evening Peak (5-8 PM)**: 90% average density
-- **Normal Hours**: 45% average density
-- **Night (11 PM - 5 AM)**: 5% average density
-- **Random Variation**: ±15% to simulate real-world uncertainty
-
-### Pedestrian Management
-
-- **Maximum Wait Time**: 120 seconds (safety override)
-- **Crossing Time**: 20 seconds base + 2 seconds per extra pedestrian
-- **Smart Activation**: Prefers low traffic periods but prioritizes safety
-
-## 🎓 Academic Context
-
-This project addresses the problem of traffic congestion in metropolitan cities like Delhi by applying **soft computing techniques**. Traditional mathematical approaches fail with dynamic and uncertain traffic conditions, making fuzzy logic an ideal solution that mimics human decision-making.
-
-### Methodology
-1. Traffic conditions simulated using Python
-2. Traffic density categorized (Low, Medium, High)
-3. Time divided into periods (Peak, Normal, Night)
-4. Fuzzy rules applied for decision making
-5. Continuous adaptation to changing conditions
-
-## 📈 Future Enhancements
-
-- Integration with real SUMO traffic simulator
-- Machine learning to optimize fuzzy rules
-- Emergency vehicle priority system
 - Multi-intersection coordination
-- Real-time camera-based vehicle detection
-- Mobile app for traffic updates
+- Emergency vehicle prioritization
+- Camera or IoT based real-time density estimation
+- Learning-based optimization of fuzzy membership functions and rules
 
-## 👨‍💻 Author
+## License
 
-**Project**: Smart Traffic Light Control System Using Soft Computing  
-**Domain**: Artificial Intelligence, Soft Computing, Traffic Management  
-**Technologies**: Python, Fuzzy Logic, NumPy, Scikit-Fuzzy, Matplotlib  
-
-## 📄 License
-
-This project is for educational and research purposes.
-
----
-
-**Note**: This system demonstrates the effectiveness of soft computing in solving real-world problems where traditional approaches fall short. The fuzzy logic approach provides human-like reasoning capability that adapts to uncertain and dynamic traffic conditions.
+This project is intended for academic and educational use.
