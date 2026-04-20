@@ -9,6 +9,11 @@ from main_control_system import SmartTrafficLightSystem
 from traffic_simulator import TrafficSimulator
 from fuzzy_controller import FuzzyTrafficController
 import json
+from pathlib import Path
+
+
+PROJECT_DIR = Path(__file__).resolve().parent
+FIGURES_DIR = PROJECT_DIR / 'figures'
 
 
 class PerformanceTester:
@@ -19,6 +24,7 @@ class PerformanceTester:
     def __init__(self):
         self.system = SmartTrafficLightSystem()
         self.test_results = []
+        FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     
     def run_comprehensive_tests(self):
         """Run tests across multiple scenarios"""
@@ -90,9 +96,10 @@ class PerformanceTester:
     
     def save_results_to_file(self, filename='test_results.json'):
         """Save test results to JSON file"""
-        with open(filename, 'w') as f:
+        output_file = PROJECT_DIR / filename
+        with output_file.open('w') as f:
             json.dump(self.test_results, f, indent=2)
-        print(f"\nResults saved to {filename}")
+        print(f"\nResults saved to '{output_file}'")
 
 
 class ResultsVisualizer:
@@ -102,6 +109,7 @@ class ResultsVisualizer:
     
     def __init__(self):
         plt.style.use('seaborn-v0_8-darkgrid')
+        FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     
     def plot_comparison_chart(self, test_results):
         """Create comparison bar chart"""
@@ -138,8 +146,9 @@ class ResultsVisualizer:
                            ha='center', va='bottom', fontsize=9)
         
         plt.tight_layout()
-        plt.savefig('performance_comparison.png', dpi=300, bbox_inches='tight')
-        print("Performance comparison chart saved to 'performance_comparison.png'")
+        output_file = FIGURES_DIR / 'performance_comparison.png'
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
+        print(f"Performance comparison chart saved to '{output_file}'")
         plt.close()
     
     def plot_improvement_chart(self, test_results):
@@ -156,6 +165,7 @@ class ResultsVisualizer:
         ax.set_title('Delay Reduction: Smart Control vs Fixed-Time Control', 
                     fontsize=14, fontweight='bold')
         ax.axhline(y=0, color='k', linestyle='-', linewidth=0.8)
+        ax.set_xticks(range(len(scenarios)))
         ax.set_xticklabels(scenarios, rotation=15, ha='right')
         ax.grid(axis='y', alpha=0.3)
         
@@ -170,8 +180,9 @@ class ResultsVisualizer:
                        fontsize=10, fontweight='bold')
         
         plt.tight_layout()
-        plt.savefig('improvement_chart.png', dpi=300, bbox_inches='tight')
-        print("Improvement chart saved to 'improvement_chart.png'")
+        output_file = FIGURES_DIR / 'improvement_chart.png'
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
+        print(f"Improvement chart saved to '{output_file}'")
         plt.close()
     
     def plot_traffic_density_response(self):
@@ -207,8 +218,9 @@ class ResultsVisualizer:
         ax.set_xlim(0, 100)
         
         plt.tight_layout()
-        plt.savefig('adaptive_response.png', dpi=300, bbox_inches='tight')
-        print("Adaptive response chart saved to 'adaptive_response.png'")
+        output_file = FIGURES_DIR / 'adaptive_response.png'
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
+        print(f"Adaptive response chart saved to '{output_file}'")
         plt.close()
     
     def plot_traffic_patterns(self):
@@ -248,8 +260,9 @@ class ResultsVisualizer:
         ax.grid(True, alpha=0.3)
         
         plt.tight_layout()
-        plt.savefig('traffic_patterns.png', dpi=300, bbox_inches='tight')
-        print("Traffic patterns chart saved to 'traffic_patterns.png'")
+        output_file = FIGURES_DIR / 'traffic_patterns.png'
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
+        print(f"Traffic patterns chart saved to '{output_file}'")
         plt.close()
     
     def create_summary_report(self, test_results):
@@ -302,7 +315,7 @@ def run_full_analysis():
     # Generate membership functions visualization
     try:
         controller = FuzzyTrafficController()
-        controller.visualize_membership_functions()
+        controller.visualize_membership_functions(FIGURES_DIR / 'membership_functions.png')
     except Exception as e:
         print(f"Membership functions visualization skipped: {e}")
     
@@ -313,11 +326,11 @@ def run_full_analysis():
     print("ANALYSIS COMPLETE!")
     print("Generated files:")
     print("  - test_results.json")
-    print("  - performance_comparison.png")
-    print("  - improvement_chart.png")
-    print("  - adaptive_response.png")
-    print("  - traffic_patterns.png")
-    print("  - membership_functions.png")
+    print("  - figures/performance_comparison.png")
+    print("  - figures/improvement_chart.png")
+    print("  - figures/adaptive_response.png")
+    print("  - figures/traffic_patterns.png")
+    print("  - figures/membership_functions.png")
     print("#"*70 + "\n")
 
 

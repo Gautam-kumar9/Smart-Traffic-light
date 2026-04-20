@@ -10,3 +10,7 @@ build/
 dist/
 .DS_Store
 Thumbs.db
+
+# Generated analysis outputs
+test_results.json
+figures/*.png

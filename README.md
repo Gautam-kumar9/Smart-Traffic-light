@@ -146,11 +146,11 @@ Pedestrian safety outcomes in the same run:
 When you run the full analysis script, it generates:
 
 - test_results.json
-- performance_comparison.png
-- improvement_chart.png
-- adaptive_response.png
-- traffic_patterns.png
-- membership_functions.png
+- figures/performance_comparison.png
+- figures/improvement_chart.png
+- figures/adaptive_response.png
+- figures/traffic_patterns.png
+- figures/membership_functions.png
 
 These files are generated on demand and are not required to keep in the repository.
 

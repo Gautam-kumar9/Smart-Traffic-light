@@ -6,6 +6,7 @@ Implements fuzzy rules for dynamic signal timing based on traffic conditions
 import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
+from pathlib import Path
 
 
 class FuzzyTrafficController:
@@ -141,8 +142,8 @@ class FuzzyTrafficController:
         
         return round(self.traffic_simulation.output['green_time'])
     
-    def visualize_membership_functions(self):
-        """Visualize the membership functions"""
+    def visualize_membership_functions(self, output_path='membership_functions.png'):
+        """Visualize and save membership functions."""
         import matplotlib.pyplot as plt
         
         fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(15, 10))
@@ -164,8 +165,10 @@ class FuzzyTrafficController:
         axes[1, 1].set_title('Green Signal Time Membership Functions')
         
         plt.tight_layout()
-        plt.savefig('membership_functions.png', dpi=300, bbox_inches='tight')
-        print("Membership functions saved to 'membership_functions.png'")
+        output_file = Path(output_path)
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
+        print(f"Membership functions saved to '{output_file}'")
         plt.close()
 
 

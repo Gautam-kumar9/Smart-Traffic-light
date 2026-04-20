@@ -23,6 +23,7 @@ from traffic_simulator import TrafficSimulator
 
 PROJECT_DIR = Path(__file__).resolve().parent
 RESULTS_JSON = PROJECT_DIR / "test_results.json"
+FIGURES_DIR = PROJECT_DIR / "figures"
 GENERATED_IMAGES = [
     "performance_comparison.png",
     "improvement_chart.png",
@@ -486,13 +487,13 @@ def render_assets_and_sumo_tab() -> None:
     st.subheader("Reports, Visual Assets, and SUMO Integration")
 
     st.markdown("### Generated Analysis Assets")
-    existing_images = [name for name in GENERATED_IMAGES if (PROJECT_DIR / name).exists()]
+    existing_images = [name for name in GENERATED_IMAGES if (FIGURES_DIR / name).exists()]
 
     if not existing_images:
         st.info("No generated images found yet. Run performance_testing.py to create charts.")
     else:
         for image_name in existing_images:
-            st.image(str(PROJECT_DIR / image_name), caption=image_name, use_container_width=True)
+            st.image(str(FIGURES_DIR / image_name), caption=image_name, use_container_width=True)
 
     st.markdown("### SUMO Scenario Status")
     sumo_files = [
