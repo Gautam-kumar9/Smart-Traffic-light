@@ -141,6 +141,12 @@ Pedestrian safety outcomes in the same run:
 - Crossing requests: 11
 - Safety overrides: 7
 
+## Key Performance Graph
+
+The most important comparison figure is shown below. It clearly demonstrates the average delay difference between fixed-time and smart fuzzy control across test scenarios.
+
+![Performance Comparison Graph](figures/performance_comparison.png)
+
 ## Generated Outputs
 
 When you run the full analysis script, it generates:
