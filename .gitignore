@@ -15,3 +15,4 @@ Thumbs.db
 test_results.json
 figures/*.png
 !figures/performance_comparison.png
+!figures/traffic_patterns.png

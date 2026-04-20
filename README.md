@@ -147,6 +147,12 @@ The most important comparison figure is shown below. It clearly demonstrates the
 
 ![Performance Comparison Graph](figures/performance_comparison.png)
 
+## Traffic Pattern Graph
+
+This figure shows the 24-hour traffic density trend used in the simulation for weekday and weekend behavior.
+
+![Traffic Patterns Graph](figures/traffic_patterns.png)
+
 ## Generated Outputs
 
 When you run the full analysis script, it generates:
