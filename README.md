@@ -2,7 +2,7 @@
 
 An adaptive traffic signal control project based on fuzzy logic and soft computing.
 The system compares fixed-time control against smart fuzzy control under realistic traffic patterns and pedestrian crossing demand.
-
+## demo: - https://smart-traffic-light-2.streamlit.app/
 ## Overview
 
 Traditional fixed-time traffic signals do not adapt to changing demand and can increase congestion during peak periods. This project uses fuzzy logic to dynamically choose green signal duration using:
